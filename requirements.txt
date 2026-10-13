@@ -1,1 +1,3 @@
 vpython
+# VPython utiliza pkg_resources, retirado en setuptools 81.
+setuptools<81

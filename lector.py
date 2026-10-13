@@ -1,23 +1,17 @@
-"""Lee los ángulos grabados del sensor BWT901CL."""
-
 import ctypes as ct
 from pathlib import Path
 
 
 class Trama(ct.Structure):
-    """Los once bytes de un paquete del sensor."""
-
     _fields_ = [(f"B{i}", ct.c_ubyte) for i in range(11)]
 
 
 def convertir_angulo(bajo, alto):
-    """Une los bytes, interpreta el signo y convierte a grados."""
     valor = ct.c_int16((alto << 8) | bajo).value
     return valor / 32768 * 180
 
 
 def leer_angulos(ruta):
-    """Entrega una tupla (roll, pitch, yaw) por paquete válido."""
     with open(ruta, "rb") as archivo:
         numero = 0
         while True:
